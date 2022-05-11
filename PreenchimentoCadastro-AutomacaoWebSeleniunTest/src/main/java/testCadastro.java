@@ -1,4 +1,6 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -7,13 +9,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class testCadastro{
+	
+
+	private ChromeDriver driver;
+
+	@Before
+	public void inicializa() {
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
+		driver.manage().window().maximize();
+	}
+
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+
 	@Test
 	public void deveRealizarCadastroComSucesso() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
-
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Amanda");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Gomez");
 		driver.findElement(By.id("elementosForm:sexo:1")).click();
@@ -29,63 +43,34 @@ public class testCadastro{
 		Assert.assertEquals("Comida: Carne",driver.findElement(By.id("descComida")).getText());
 		Assert.assertEquals("Escolaridade: 2graucomp",driver.findElement(By.id("descEscolaridade")).getText());
 		Assert.assertEquals("Esportes: Corrida",driver.findElement(By.id("descEsportes")).getText());
-		driver.quit();
-
 	}
 	
 	@Test
 	public void deveValidarNomeObrigatorio() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
-		
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Nome eh obrigatorio", alert.getText());
-		driver.quit();	
+		Assert.assertEquals("Nome eh obrigatorio", alert.getText());	
 	}
-	
-	
 	
 	@Test
 	public void deveValidarSobreNomeObrigatorio() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Roberta");
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
-		driver.quit();	
+		Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());	
 	}
 	
-
 	@Test
 	public void deveValidarSexoObrigatorio() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Roberta");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Rodrigues");
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
-		driver.quit();	
+		Assert.assertEquals("Sexo eh obrigatorio", alert.getText());	
 	}
 	
-
 	@Test
 	public void deveValidarComidaVegetariana() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Roberta");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Rodrigues");
 		driver.findElement(By.id("elementosForm:sexo:1")).click();
@@ -93,18 +78,11 @@ public class testCadastro{
 		driver.findElement(By.id("elementosForm:comidaFavorita:3")).click();
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
-		driver.quit();	
+		Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());	
 	}
 	
 	@Test
-	
 	public void deveValidarEsporteIndesiso() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Roberta");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Rodrigues");
 		driver.findElement(By.id("elementosForm:sexo:1")).click();
@@ -115,6 +93,5 @@ public class testCadastro{
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
-		driver.quit();	
 	}
 }

@@ -15,7 +15,7 @@ public class testCadastro{
 
 	@Before
 	public void inicializa() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lferrsan\\Downloads\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:/Users/lferrsan/Downloads/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("C:\\eclipseEstudo\\ProjetoAutomacaoWebSeleniun\\src\\main\\resources\\componentes.html");
 		driver.manage().window().maximize();
